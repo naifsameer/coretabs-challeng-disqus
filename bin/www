@@ -30,8 +30,8 @@ function normalizePort(val) {
 /**
  * Get port from environment and store in Express.
  */
-
-const port = normalizePort(process.env.PORT || "3000");
+const Settings = require("./../settings");
+const port = normalizePort(Settings.port);
 app.set("port", port);
 
 /**
