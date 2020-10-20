@@ -5,18 +5,19 @@ const client = new MongoClient(Settings.dbURL, { useNewUrlParser: true, useUnifi
 
 /**
  * Connect to the DB
-* @param collection of the DB
+* @param collection you want to use
 * @returns promise
-* @example collection.then((data) => {
-  data.find({}).then((result) => console.log(result))
+* @example const collection = await DB("post");
+  const data = await collection.insertOne({ d: "value" });
 })
 */
-const DB = function superDB(collection) {
+const DB = function (collection) {
   return new Promise((resolve) => {
     client.connect((err) => {
       if (err) throw Error(err);
+      // connect to db
       const db = client.db("disqus");
-      // db.collection(collection).find({}).toArray().then((data) => console.log(data));
+      // return the collection
       resolve(db.collection(collection));
     });
   });

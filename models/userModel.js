@@ -1,12 +1,12 @@
 const DB = require("./index");
 
 /**
+ * add new user
  * @param {body} req.body
- * @param {res} res object
+ * @returns result
  */
-module.newUser = (body, res) => {
-  const collection = DB("post");
-  collection.then((data) => {
-    data.find({}).toArray().then((d) => res.json(d));
-  });
+exports.newUser = async (body) => {
+  const collection = await DB("user");
+  const data = await collection.insertOne({ ...body });
+  return (data.result);
 };
