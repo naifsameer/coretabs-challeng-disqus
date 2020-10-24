@@ -1,0 +1,55 @@
+<%- include('../head.ejs') %>
+<div class="signup-container"></div>
+<div class="comments-container">
+  <div class="comments-nav">
+    <nav>
+      <div class="comment-number">3 comments</div>
+      sort items
+    </nav>
+    <div class="add-comment">
+      <div class="user-img">
+        <img
+          width="100"
+          height="100"
+          src="images/user-img.jpg"
+          alt="user image"
+        />
+      </div>
+      <div class="comment-input">
+        <form action="/new" method="post">
+          <textarea
+            required
+            type="text"
+            name="commentBody"
+            placeholder="Join the discussion..."
+          ></textarea>
+          <button id="post" type="submit">send</button>
+        </form>
+      </div>
+    </div>
+  </div>
+  <hr />
+  <div class="comments-list">
+    <% data.forEach((item) => { %>
+    <div class="comment">
+      <div class="user-info">
+        <div class="user-img">
+          <img src="/images/user-img.jpg" alt="user image" />
+        </div>
+        <div class="user">
+          <div class="username"><%= item.username %></div>
+          <div class="date">
+            <% let date = Math.round((Date.now() - item.date) / 60000) %> <% if
+            (Math.round(date / 60) > 0) { %> <%= Math.round(date / 60) %> hours
+            ago <% } else { %> <%= date %> minutes ago <% } %>
+            <!-- <%= Date.now() %> -->
+          </div>
+        </div>
+      </div>
+      <div class="comment-body"><%= item.commentBody %></div>
+    </div>
+    <% }) %>
+  </div>
+</div>
+<script src="js/comment/comment.js"></script>
+<%- include('../footer.ejs') %>

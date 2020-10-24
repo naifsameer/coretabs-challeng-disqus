@@ -1,0 +1,18 @@
+<%- include("../head") %>
+
+<div class="profile-container">
+  <div class="user-img">
+    <img src="/images/user-img.jpg" alt="user image">
+    <button id="user-img-btn">edit image</button>
+  </div>
+  <div class="user-info">
+    <div class="user-name">
+      <%= user.username %>
+    </div>
+    <div class="user-email">
+      <%= user.email %>
+    </div>
+  </div>
+</div>
+
+<%- include("../footer") %>

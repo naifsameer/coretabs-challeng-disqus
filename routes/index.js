@@ -1,7 +1,11 @@
 const express = require("express");
 const router = express.Router();
 const userRouter = require("./users");
-/* GET home page. */
+const commentRouter = require("./comment");
+// home page || comment page
+router.use("/", commentRouter);
+
+/* GET user page. */
 router.use("/user", userRouter);
 
 // sing up page
