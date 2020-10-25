@@ -66,23 +66,29 @@
     width: 100%;
     height: 100%; }
 
-.signup-container {
+.signup-container,
+.login-container {
   width: 350px;
   margin: auto;
   margin-top: 10px; }
-  .signup-container form > div {
+  .signup-container form > div,
+  .login-container form > div {
     height: 40px;
     position: relative;
     z-index: 20; }
-    .signup-container form > div:not(:last-of-type) {
+    .signup-container form > div:not(:last-of-type),
+    .login-container form > div:not(:last-of-type) {
       margin-bottom: 20px; }
   .signup-container form input,
-  .signup-container form label {
+  .signup-container form label,
+  .login-container form input,
+  .login-container form label {
     display: block;
     position: absolute;
     top: 0;
     left: 0; }
-  .signup-container form label {
+  .signup-container form label,
+  .login-container form label {
     font-size: 0.8em;
     background-color: #fff;
     padding-right: 4px;
@@ -90,16 +96,20 @@
     z-index: 10;
     transform: translate(6px, 10px);
     transition: transform .3s linear; }
-  .signup-container form input {
+  .signup-container form input,
+  .login-container form input {
     padding: 10px;
     width: 80%;
     height: 100%;
     z-index: 1; }
   .signup-container input:focus ~ label,
-  .signup-container input:valid ~ label {
+  .signup-container input:valid ~ label,
+  .login-container input:focus ~ label,
+  .login-container input:valid ~ label {
     transform: translate(6px, -10px);
     color: #020229; }
-  .signup-container form button {
+  .signup-container form button,
+  .login-container form button {
     margin-top: 20px;
     width: 80%;
     padding: 10px; }

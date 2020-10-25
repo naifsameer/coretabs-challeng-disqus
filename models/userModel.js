@@ -1,50 +1,60 @@
-// const bcrypt = require("bcrypt");
+/* eslint-disable dot-notation */
+const bcrypt = require("bcrypt");
 const DB = require("./index");
-// hash the password TODO use bcrypt its better than this way
-const crypto = require("crypto");
-const secret = "3$gkjgkj";
-/**
- * add new user
+
+/** add new user
  * @param {body} req.body
- * @returns result
+ * @returns result + id
  */
 exports.newUser = async (body) => {
   const collection = await DB("user");
   const { username, email, password } = body;
-  const passwordHash = crypto
-    .createHmac("sha256", secret)
-    .update(password)
-    .digest("hex");
-  // TODO crypt password here
-  // await bcrypt.hash(password, 10, (err, hash) => {
-  //   passwordHash = hash;
-  // });
-  const data = await collection.insertOne({ username, email, passwordHash });
-  return data.result;
+
+  const hashPassword = await bcrypt.hash(password, 10);
+  const data = await collection.insertOne({
+    username,
+    email,
+    passowrd: hashPassword,
+  });
+  // return the id to store it in the session
+  const { result, insertedId } = data;
+  return { result, id: insertedId };
 };
 
 /** login the user
  * @param {object} userData "email" and "password"
- *
- *
+ * @returns {object} return object {ok: true, _id, username}
+ * @returns {object} object {ok: false, msg: "wrong password"} or
+ * {ok: false, msg: "wrong email"}
  */
 exports.loginUser = async (userData) => {
   const collection = await DB("user");
-  // eslint-disable-next-line no-unused-vars
   const { email, password } = userData;
+  const user = await collection.findOne({ email });
+  // if the user not exsits
+  if (!user) return { ok: false, msg: "wrong email" };
+  const checkPassword = await bcrypt.compare(password, user.passowrd);
+  if (checkPassword) {
+    return { id: (user["_id"]), useranme: (user.username) };
+  }
+  // if the password wrong
+  return { ok: false, msg: "wrong password" };
+};
 
-  /** check password
-   * @param {string} inputPassword the password from the req.body
-   * @param {string} userPassword password in the database
-   * @returns {boolean} True || Fasle
-  */
-  const checkPassword = (inputPassword, userPassword) => {
-    const passwordHash = crypto
-      .createHmac("sha256", secret)
-      .update(inputPassword)
-      .digest("hex");
-    return (passwordHash === userPassword);
-  };
-  const data = await collection.findOne({ email });
-  console.log(data.password);
+/** user profile section
+ * @param {string} userId
+ * @returns {object} return object {ok: true, username, email}
+ * @returns {object} object {ok: false, msg: "user not found"}
+ * if the user not found
+ */
+exports.showUser = async (id) => {
+  const collection = await DB("user");
+  const user = await collection.findOne({ id });
+  // if the user not exsits
+  if (user) {
+    const { username, email } = user;
+    return { ok: true, username, email };
+  }
+  // if the user not found
+  return { ok: false, msg: "user not found" };
 };

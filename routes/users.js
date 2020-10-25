@@ -6,5 +6,16 @@ const UserControler = require("../controller/userController");
 router.post("/new", UserControler.newUser);
 
 // login the user
-router.get("/login", UserControler.loginUser);
+router.post("/login", UserControler.loginUser);
+
+router.get("/q", (req, res) => {
+  console.log(req.session.userId);
+  res.json(req.session.userId);
+});
+
+router.get("/z", (req, res) => {
+  req.session.destroy();
+  res.json({ msg: "session delete it" });
+});
+
 module.exports = router;
