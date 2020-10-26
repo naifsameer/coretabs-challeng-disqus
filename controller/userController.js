@@ -2,10 +2,10 @@ const UserModel = require("../models/userModel");
 
 // add new user
 exports.newUser = async (req, res) => {
-  const { body }  = req;
+  const { body } = req;
   const user = await UserModel.newUser(body);
   req.session.userId = user.id;
-  res.json({ username: body.username, email: body.email, id: (user.id) });
+  res.json(user);
   // res.render("user/profile.ejs", {
   //   user: {
   //     username: body.username,
@@ -17,10 +17,20 @@ exports.newUser = async (req, res) => {
 // login the user
 exports.loginUser = async (req, res) => {
   const { body } = req;
-  // const body = { email: "test@gmail.comm", password: "wrong password" };
   const user = await UserModel.loginUser(body);
-  req.session.userId = user.id;
+  // send user data to the client
   res.json(user);
-  console.log(`from userController ==> ${req.session.userID}`);
-  // res.json({ msg: "this is massage from the server to the client" });
+  // add the user id to the session
+  req.session.userId = user.id;
+};
+
+/** show the user
+ *
+ *
+ */
+exports.showUser = async (req, res) => {
+  // const { id } = req.body;
+  const id = "5f957c345eac6314c0b00b68";
+  const user = await UserModel.showUser(id);
+  res.json(user);
 };

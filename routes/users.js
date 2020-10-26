@@ -8,10 +8,7 @@ router.post("/new", UserControler.newUser);
 // login the user
 router.post("/login", UserControler.loginUser);
 
-router.get("/q", (req, res) => {
-  console.log(req.session.userId);
-  res.json(req.session.userId);
-});
+router.get("/show", UserControler.showUser);
 
 router.get("/z", (req, res) => {
   req.session.destroy();

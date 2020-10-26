@@ -15,7 +15,23 @@ const signupApi = () => {
     e.preventDefault();
     const formData = signupData();
     const response = await postData("/user/new", formData);
-    // console.log(await response);
+    console.log(response);
+
+    if (response.result.ok) {
+      // set the user to the session
+      setToSession(response.username, response.id);
+      // hide the signup form
+      // TODO improve the style
+      const element = document.querySelector(".signup-container");
+      element.innerHTML = `
+        <div style="color: green; font-size: 1.2em">
+          You are now user in our disqus
+        </div>
+      `;
+      setTimeout(() => {
+        element.style.display = "none";
+      }, 2000);
+    }
   };
 };
 

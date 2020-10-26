@@ -18,6 +18,5 @@ const postData =  async (url = "", data) => {
     redirect: "follow",
     body: JSON.stringify(data),
   });
-  console.log(await response.json());
-  return response;
+  return response.json();
 };
