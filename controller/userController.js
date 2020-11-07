@@ -1,6 +1,6 @@
 const UserModel = require("../models/userModel");
 
-// add new  user
+// add new user
 exports.newUser = async (req, res) => {
   const { body } = req;
   const user = await UserModel.newUser(body);
