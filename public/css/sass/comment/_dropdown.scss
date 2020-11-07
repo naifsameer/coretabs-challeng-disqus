@@ -1,0 +1,33 @@
+.is-hide {
+  display: none;
+}
+
+%btn {
+  font-size: 0.95em;
+  padding: 10px 15px;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  transition: background 0.3s linear;
+
+  &:hover {
+    background-color: lighten($color: gray, $amount: 30%);
+  }
+}
+
+.dropdown-container {
+  #login-btn {
+    $btn-color: lighten(rgb(63, 81, 181), 5%);;
+    font-size: 0.9em;
+    padding: 7px 15px;
+    background-color: $btn-color;
+    color: lighten($btn-color, 40%);
+    border: none;
+    transition: background 0.3s linear;
+    box-shadow: 0px 6px 12px rgba($btn-color, 30%);
+
+    &:hover {
+      background-color: darken($btn-color, 10%);
+    }
+  }
+}

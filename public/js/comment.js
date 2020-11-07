@@ -1,17 +1,4 @@
 /* eslint-disable no-undef */
-// check the user if he sing in
-const checkUser = (userID) => {
-  // localStorage.setItem(userID, "some vale here");
-  if (!localStorage.getItem(userID)) {
-    signup();
-  } else {
-    window.console.table("your post done ");
-  }
-  console.log(localStorage);
-};
-
-checkUser("14112225");
-
 // eslint-disable-next-line prefer-const
 let sendBtn = document.querySelector("#post");
 
@@ -24,3 +11,17 @@ sendBtn.onclick = function (e) {
   //   .catch((error) => console.error(error));
   console.log(textarea);
 };
+
+// check the user if he login
+const checkUser = () => {
+  const s = session.getItem("userId");
+  if (s) {
+    console.log("user is login");
+    session.clear();
+  } else {
+    console.log("user not login or logout");
+    signup();
+  }
+};
+
+checkUser();

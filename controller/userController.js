@@ -6,12 +6,6 @@ exports.newUser = async (req, res) => {
   const user = await UserModel.newUser(body);
   req.session.userId = user.id;
   res.json(user);
-  // res.render("user/profile.ejs", {
-  //   user: {
-  //     username: body.username,
-  //     email: body.email,
-  //   },
-  // });
 };
 
 // login the user

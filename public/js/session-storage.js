@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 const session = sessionStorage;
 
-/** session stracture for user
+/** session stracture for user TODO delete this comment
  * login true or false
  * username,
  * userId,
@@ -10,7 +10,6 @@ const session = sessionStorage;
 
 /** set to session
  * @param {object} object username, userId, imgSrc
- *
 */
 const setToSession = (username, userId, imgSrc = "/images/user-img.jpg") => {
   session.setItem("username", username);
