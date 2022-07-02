@@ -1,7 +1,7 @@
 const { MongoClient } = require("mongodb");
 const Settings = require("../settings");
 
-const client = new MongoClient(Settings.dbURL, { useNewUrlParser: true, useUnifiedTopology: true });
+const client = new MongoClient(Settings.dbURL, { useUnifiedTopology: true });
 
 /**
  * Connect to the DB
